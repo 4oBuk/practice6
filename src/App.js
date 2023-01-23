@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Button from "./CalculatorButton";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  return ( 
+    <>
+      <input type="text"/>
+      <Button value="="></Button>
+      <br></br>
+      <Button value="+"></Button>
+      <Button value="-"></Button>
+      <Button value="/"></Button>
+      <Button value="*"></Button>
+      <br></br>
+      <Button value="0"></Button>
+      <Button value="1"></Button>
+      <Button value="2"></Button>
+      <br></br>
+      <Button value="3"></Button>
+      <Button value="4"></Button>
+      <Button value="5"></Button>
+      <br></br>
+      <Button value="6"></Button>
+      <Button value="7"></Button>
+      <Button value="8"></Button>
+      <br></br>
+      <Button value="0"></Button>
+    </>
   );
 }
 
