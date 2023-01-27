@@ -3,7 +3,6 @@ import React from "react";
 class CalculatorButton extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       value: props.value,
       action: props.action,
