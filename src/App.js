@@ -22,70 +22,60 @@ class App extends React.Component {
   calculate = (event) => {
     const inputValue = this.state.inputValue;
     let history = this.state.history;
-    // calcuate value
-    let result = 0;
-    let expression = `\n--------------\n ${inputValue}=${result}`;
-    this.setState({
-      history: history + expression,
-      inputValue: result,
-      operatorAllowed: false,
-    });
+    if (this.isExpressionValid(inputValue)) {
+      let numbers = inputValue.split(" ");
+      let result;
+      const operator = numbers[1];
+      const num1 = parseFloat(numbers[0]);
+      const num2 = parseFloat(numbers[2]); //todo fine operator
+      switch (operator) {
+        case "+":
+          result = num1 + num2;
+          break;
+        case "-":
+          result = num1 - num2;
+          break;
+        case "*":
+          result = num1 * num2;
+          break;
+        case "/":
+          result = num1 / num2;
+          break;
+        default:
+          result = undefined;
+      }
+      let message = result;
+      if (result === undefined || result === Infinity) {
+        result = 0;
+      }
+      let expression = `\n--------------\n ${numbers.join("")}=${message}`;
+      this.setState({
+        history: history + expression,
+        inputValue: result.toString(),
+        operatorAllowed: false,
+      });
+      return result;
+    }
   };
 
   operatorClick = (event) => {
-    console.log("operator clicked");
     const { inputValue } = this.state;
     if (this.isExpressionValid(inputValue)) {
-      this.calculate();
-      const { inputAfterUpdate } = this.state;
+      const result = this.calculate();
       this.setState({
-        inputValue: `${inputAfterUpdate}${event.target.textContent}`,
+        inputValue: `${result} ${event.target.textContent} `,
       });
-      // get state of input again
-      // add operator to the end
     } else {
-      if (inputValue === "") {
-        return;
-      }
-      const regex = new RegExp("[123456890]+");
-      if (regex.test(inputValue)) {
-        this.setState({
-          inputValue: `${inputValue}${event.target.textContent}`,
-        });
-      }
-      // check if there is number before
-      // add operator to the end
+      let input = inputValue.split(" ");
+      this.setState({
+        inputValue: `${input[0]} ${event.target.textContent} `,
+      });
     }
   };
   isExpressionValid(expession) {
-    const regex = /\d+[/*+-]{1}\d+$/;
+    const regex = /\d+.?\d* [/*+-]{1} \d+.?\d*$/;
     return regex.test(expession);
-    // use regex to check it
-    // example 1: "7*1" -- valid
-    // example 2: "4*-5" -- not valid
   }
-  // TODO
-  // 1. check if the expession is valid
-  // 1.1. parse buffer
-  // 2. if valid calculate expression
-  // 2.1. parse buffer and calculate
-  // 3. clean buffer and write operation in history
-  // TODO
-  // 1. operator '-' can be on the beggining of the buffer
-  // 2. if expression is valid and a user press any operator
-  //  calculate value, clean bugger, add result and operator to the buffer
-  // 3. if expression isn't valid and previous element is operator
-  //    replace operator with new one
-  //
-  // };
-
-  // !I have to check what to input on button click
-  // ? I can create another component or a function for numbers
-  // ? for example I will check is operator may be used for operation on click function
-  //    If I will allow to use negative nubmers I need a delete button or just only positive
-  // ? for numbers I will parse number and put it in state as current value
-  //
-
   render() {
     const history = this.state.history;
     const inputValue = this.state.inputValue;
@@ -103,17 +93,17 @@ class App extends React.Component {
           <CalButton value="/" action={this.operatorClick} />
           <CalButton value="*" action={this.operatorClick} />
         </div>
-        <CalButton value="0" action={this.numberClick} />
         <CalButton value="1" action={this.numberClick} />
         <CalButton value="2" action={this.numberClick} />
-        <br />
         <CalButton value="3" action={this.numberClick} />
+        <br />
         <CalButton value="4" action={this.numberClick} />
         <CalButton value="5" action={this.numberClick} />
-        <br />
         <CalButton value="6" action={this.numberClick} />
+        <br />
         <CalButton value="7" action={this.numberClick} />
         <CalButton value="8" action={this.numberClick} />
+        <CalButton value="9" action={this.numberClick} />
         <br />
         <CalButton value="0" action={this.numberClick} />
       </>
