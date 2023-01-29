@@ -1,6 +1,10 @@
 import CalButton from "./CalculatorButton";
 import React from "react";
-
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import expressionsReducer from "./Expressions/reducers/expressions";
+import Expressions from "./Expressions/containers/Expressions";
+const store = createStore(expressionsReducer);
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -80,7 +84,8 @@ class App extends React.Component {
     const history = this.state.history;
     const inputValue = this.state.inputValue;
     return (
-      <>
+      <Provider store={store}>
+
         <div>
           <textarea value={history} readOnly={true} />
           <br />
@@ -106,7 +111,8 @@ class App extends React.Component {
         <CalButton value="9" action={this.numberClick} />
         <br />
         <CalButton value="0" action={this.numberClick} />
-      </>
+        <Expressions/>
+      </Provider>
     );
   }
 }

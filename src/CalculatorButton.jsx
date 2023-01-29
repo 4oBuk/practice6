@@ -14,7 +14,4 @@ class CalculatorButton extends React.Component {
     return <button onClick={action}>{value}</button>;
   }
 }
-// const CalculatorButton = ({ value, action }) => {
-// };
-
 export default CalculatorButton;
