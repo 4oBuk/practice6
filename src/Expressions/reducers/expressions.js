@@ -2,6 +2,7 @@ const initialState = {
   isLoading: false,
   list: [],
   name: "Expressions from back-end",
+  isCalculated: true,
 };
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
@@ -18,6 +19,7 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         list: expressions,
+        isCalculated: false,
       };
     }
     case "ERROR_RECEIVE_EXPRESSIONS": {

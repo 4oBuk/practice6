@@ -25,10 +25,10 @@ const fetchExpressions =
   ({ amount }) =>
   (dispatch) => {
     dispatch(requestExpressions());
-    console.log(amount);
     return getExpressions(amount)
       .then((expressions) => dispatch(receiveExpressions(expressions)))
       .catch(() => dispatch(errorReceiveExpressions));
   };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default { fetchExpressions };
