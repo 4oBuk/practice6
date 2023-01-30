@@ -1,5 +1,4 @@
 const initialState = {
-  isLoading: false,
   list: [],
   name: "Expressions from back-end",
   isCalculated: true,
@@ -10,14 +9,12 @@ export default (state = initialState, action) => {
     case "REQUEST_EXPRESSIONS": {
       return {
         ...state,
-        isLoading: true,
       };
     }
     case "RECEIVE_EXPRESSIONS": {
       const { expressions } = action;
       return {
         ...state,
-        isLoading: false,
         list: expressions,
         isCalculated: false,
       };
@@ -25,7 +22,6 @@ export default (state = initialState, action) => {
     case "ERROR_RECEIVE_EXPRESSIONS": {
       return {
         ...state,
-        isLoading: false,
         isError: true,
       };
     }

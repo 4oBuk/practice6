@@ -8,7 +8,6 @@ class Calculator extends React.Component {
     super(props);
     this.state = {
       inputValue: "",
-      currentResult: 0,
       history: "history:",
     };
   }
@@ -24,7 +23,7 @@ class Calculator extends React.Component {
       operatorAllowed: true,
     });
   };
-  expressionToString(expression, result) {
+  generateHistoryElement(expression, result) {
     return `\n----------------\n ${expression} = ${result}`;
   }
   onCalculateClick = (event) => {
@@ -50,7 +49,7 @@ class Calculator extends React.Component {
       resultFromApi += `\nreceived ${list.length}`;
       list.forEach((expression) => {
         let result = this.calculate(expression);
-        resultFromApi += this.expressionToString(expression, result);
+        resultFromApi += this.generateHistoryElement(expression, result);
       });
       resultFromApi += "\n------done";
       this.setState({
@@ -91,7 +90,7 @@ class Calculator extends React.Component {
     if (this.isExpressionValid(inputValue)) {
       const result = this.calculate(inputValue);
       const {history } = this.state;
-      const expression = this.expressionToString(inputValue, result);
+      const expression = this.generateHistoryElement(inputValue, result);
       this.setState({
         inputValue: `${result} ${event.target.textContent} `,
         history: `${history}${expression}`
